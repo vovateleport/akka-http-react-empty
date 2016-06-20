@@ -3,6 +3,8 @@ import Process._
 import Keys._
 
 lazy val scalaV = "2.11.8"
+lazy val akkaV = "2.4.7"
+
 scalaJSUseRhino in Global := false
 
 lazy val commonSettings = Seq(
@@ -28,11 +30,11 @@ lazy val `sr-service` = (project in file("sr-service"))
     libraryDependencies ++= Seq(
       "com.lihaoyi" %% "upickle" % "0.4.0",
       "com.lihaoyi" %% "autowire" % "0.2.5",
-      "com.typesafe.akka" %% "akka-actor" % "2.4.6",
-      "io.spray" %% "spray-can" % "1.3.3",
-      "io.spray" %% "spray-json" % "1.3.2",
-      "io.spray" %% "spray-routing" % "1.3.3",
-      "io.spray" %% "spray-client" % "1.3.3"
+
+      "com.typesafe.akka" %% "akka-actor" % akkaV,
+      "com.typesafe.akka" %% "akka-http-core" % akkaV,
+      "com.typesafe.akka" %% "akka-http-experimental" % akkaV,
+      "com.typesafe.akka" %% "akka-http-spray-json-experimental" % akkaV
     )
     ,
     (resources in Compile) ++= Seq(
@@ -59,18 +61,18 @@ lazy val `sr-ui` = (project in file("sr-ui"))
     ),
 
     jsDependencies ++= Seq(
-      "org.webjars.bower" % "react" % "15.0.2"
+      "org.webjars.bower" % "react" % "15.1.0"
         /        "react-with-addons.js"
         minified "react-with-addons.min.js"
         commonJSName "React",
 
-      "org.webjars.bower" % "react" % "15.0.2"
+      "org.webjars.bower" % "react" % "15.1.0"
         /         "react-dom.js"
         minified  "react-dom.min.js"
         dependsOn "react-with-addons.js"
         commonJSName "ReactDOM",
 
-      "org.webjars.bower" % "react" % "15.0.2"
+      "org.webjars.bower" % "react" % "15.1.0"
         /         "react-dom-server.js"
         minified  "react-dom-server.min.js"
         dependsOn "react-dom.js"

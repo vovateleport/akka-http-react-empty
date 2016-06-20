@@ -25,8 +25,8 @@ object TodoControl {
     def handleSubmit(e: ReactEventI) = Callback.future {
       e.preventDefault()
       val v = $.state.runNow().text
-      AppService.addTodo(v).map(_ => $.modState(s => s.copy(text = "")))
-    } >> load()
+      AppService.addTodo(v).map(_ => $.modState(s => s.copy(text = ""), load()))
+    }
 
 
 

@@ -1,5 +1,5 @@
 # spray-react-empty
-Empty spray project with scalajs-react ui on autowire.
+Empty akka-http project with scalajs-react ui on autowire.
 
 ## How to run
 1. ```sbt```

@@ -1,9 +1,20 @@
 package sr.service
 
-import spray.http.StatusCodes._
-import spray.routing._
+import akka.actor.ActorSystem
+import akka.http.scaladsl.model.StatusCodes
+import akka.http.scaladsl.server.Route
+import akka.http.scaladsl.server.Directives._
+import akka.stream.Materializer
 
-trait Service extends HttpService with ApiService{
+import scala.concurrent.ExecutionContextExecutor
+
+trait ServiceContext {
+  implicit val system: ActorSystem
+  implicit val executor: ExecutionContextExecutor
+  implicit val materializer: Materializer
+}
+
+trait Service extends ServiceContext with ApiService{
   val root: Route =
     path("hello") {
       get { complete("Hello!") } //just for check
@@ -12,6 +23,6 @@ trait Service extends HttpService with ApiService{
     } ~ pathPrefix("ui") {
       getFromResourceDirectory("")
     } ~ path("") {
-      redirect("ui/index.html", MovedPermanently)
+      redirect("ui/index.html", StatusCodes.MovedPermanently)
     }
 }
