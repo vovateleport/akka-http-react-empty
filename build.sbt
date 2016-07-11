@@ -1,9 +1,5 @@
-import sbt._
-import Process._
-import Keys._
-
 lazy val scalaV = "2.11.8"
-lazy val akkaV = "2.4.7"
+lazy val akkaV = "2.4.8"
 
 scalaJSUseRhino in Global := false
 
@@ -28,7 +24,7 @@ lazy val `sr-service` = (project in file("sr-service"))
   .settings(
     name := "sr-service",
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %% "upickle" % "0.4.0",
+      "com.lihaoyi" %% "upickle" % "0.4.1",
       "com.lihaoyi" %% "autowire" % "0.2.5",
 
       "com.typesafe.akka" %% "akka-actor" % akkaV,
@@ -51,9 +47,9 @@ lazy val `sr-ui` = (project in file("sr-ui"))
   .settings(
     name := "sr-ui",
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %%% "upickle" % "0.4.0",
+      "com.lihaoyi" %%% "upickle" % "0.4.1",
       "com.lihaoyi" %%% "autowire" % "0.2.5",
-      "org.scala-js" %%% "scalajs-dom" % "0.9.0",
+      "org.scala-js" %%% "scalajs-dom" % "0.9.1",
       "com.github.japgolly.scalajs-react" %%% "core" % "0.11.1",
       "com.github.japgolly.scalajs-react" %%% "extra" % "0.11.1",
       "com.github.japgolly.scalajs-react" %%% "ext-scalaz72" % "0.11.1",
