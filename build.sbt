@@ -1,5 +1,6 @@
 lazy val scalaV = "2.11.8"
 lazy val akkaV = "2.4.8"
+lazy val reactV = "15.2.1"
 
 scalaJSUseRhino in Global := false
 
@@ -57,18 +58,18 @@ lazy val `sr-ui` = (project in file("sr-ui"))
     ),
 
     jsDependencies ++= Seq(
-      "org.webjars.bower" % "react" % "15.1.0"
+      "org.webjars.bower" % "react" % reactV
         /        "react-with-addons.js"
         minified "react-with-addons.min.js"
         commonJSName "React",
 
-      "org.webjars.bower" % "react" % "15.1.0"
+      "org.webjars.bower" % "react" % reactV
         /         "react-dom.js"
         minified  "react-dom.min.js"
         dependsOn "react-with-addons.js"
         commonJSName "ReactDOM",
 
-      "org.webjars.bower" % "react" % "15.1.0"
+      "org.webjars.bower" % "react" % reactV
         /         "react-dom-server.js"
         minified  "react-dom-server.min.js"
         dependsOn "react-dom.js"
