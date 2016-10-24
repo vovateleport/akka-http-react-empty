@@ -1,4 +1,4 @@
-# spray-react-empty
+# akka-http-react-empty
 Empty akka-http project with scalajs-react ui on autowire.
 
 ## How to run
