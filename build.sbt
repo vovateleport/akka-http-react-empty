@@ -1,8 +1,8 @@
 lazy val scalaV = "2.11.8"
-lazy val akkaV = "2.4.8"
-lazy val reactV = "15.2.1"
-
-scalaJSUseRhino in Global := false
+lazy val akkaV = "2.4.11"
+lazy val reactV = "15.3.2"
+lazy val scalajsreactV = "0.11.2"
+lazy val upickleV = "0.4.3"
 
 lazy val commonSettings = Seq(
   version := "0.1-SNAPSHOT",
@@ -25,7 +25,7 @@ lazy val `sr-service` = (project in file("sr-service"))
   .settings(
     name := "sr-service",
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %% "upickle" % "0.4.1",
+      "com.lihaoyi" %% "upickle" % upickleV,
       "com.lihaoyi" %% "autowire" % "0.2.5",
 
       "com.typesafe.akka" %% "akka-actor" % akkaV,
@@ -33,12 +33,7 @@ lazy val `sr-service` = (project in file("sr-service"))
       "com.typesafe.akka" %% "akka-http-experimental" % akkaV,
       "com.typesafe.akka" %% "akka-http-spray-json-experimental" % akkaV
     )
-    ,
-    (resources in Compile) ++= Seq(
-      (fastOptJS in (`sr-ui`, Compile)).value.data,
-      (packageJSDependencies in (`sr-ui`, Compile)).value
-    )
-    ,(unmanagedResourceDirectories in Compile) <+= (baseDirectory in `sr-ui`) {_ / "src" / "main" / "resources" / "static"}
+    ,(managedClasspath in Runtime) += (packageBin in (`sr-ui-assets`,Assets)).value
   )
   .dependsOn(`sr-sharedJVM`)
 
@@ -48,13 +43,13 @@ lazy val `sr-ui` = (project in file("sr-ui"))
   .settings(
     name := "sr-ui",
     libraryDependencies ++= Seq(
-      "com.lihaoyi" %%% "upickle" % "0.4.1",
+      "com.lihaoyi" %%% "upickle" % upickleV,
       "com.lihaoyi" %%% "autowire" % "0.2.5",
       "org.scala-js" %%% "scalajs-dom" % "0.9.1",
-      "com.github.japgolly.scalajs-react" %%% "core" % "0.11.1",
-      "com.github.japgolly.scalajs-react" %%% "extra" % "0.11.1",
-      "com.github.japgolly.scalajs-react" %%% "ext-scalaz72" % "0.11.1",
-      "com.github.japgolly.scalajs-react" %%% "ext-monocle" % "0.11.1"
+      "com.github.japgolly.scalajs-react" %%% "core" % scalajsreactV,
+      "com.github.japgolly.scalajs-react" %%% "extra" % scalajsreactV,
+      "com.github.japgolly.scalajs-react" %%% "ext-scalaz72" % scalajsreactV,
+      "com.github.japgolly.scalajs-react" %%% "ext-monocle" % scalajsreactV
     ),
 
     jsDependencies ++= Seq(
@@ -78,3 +73,15 @@ lazy val `sr-ui` = (project in file("sr-ui"))
     skip in packageJSDependencies := false
   )
   .dependsOn(`sr-sharedJS`)
+
+lazy val jsProjects = Seq(`sr-ui`)
+
+lazy val `sr-ui-assets` = (project in file("sr-ui-assets"))
+  .enablePlugins(SbtWeb, ScalaJSWeb)
+  .settings(
+    scalaVersion := scalaV
+    ,name := "sr-ui-assets"
+    ,scalaJSProjects := jsProjects
+    ,pipelineStages := Seq(scalaJSDev)
+  )
+  .aggregate(jsProjects.map(Project.projectToRef): _*)
