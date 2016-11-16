@@ -11,7 +11,7 @@ object SelfHosted extends App with Service {
   implicit val materializer = ActorMaterializer()
 
   val interface = "localhost"
-  val port = 8008
+  val port = 8888
 
   val bindingFuture = Http().bindAndHandle(root, interface, port)
 
