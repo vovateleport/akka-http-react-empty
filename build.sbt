@@ -1,9 +1,8 @@
 lazy val scalaV = "2.11.8"
-lazy val akkaV = "2.4.11"
+lazy val akkaHttpV = "10.0.0"
 lazy val reactV = "15.3.2"
 lazy val scalajsreactV = "0.11.3"
 lazy val upickleV = "0.4.3"
-
 
 scalaVersion in ThisBuild := scalaV
 
@@ -31,8 +30,8 @@ lazy val `sr-service` = (project in file("sr-service"))
       "com.lihaoyi" %% "upickle" % upickleV,
       "com.lihaoyi" %% "autowire" % "0.2.6",
 
-      "com.typesafe.akka" %% "akka-http-core" % akkaV,
-      "com.typesafe.akka" %% "akka-http-spray-json-experimental" % akkaV
+      "com.typesafe.akka" %% "akka-http-core" % akkaHttpV,
+      "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpV
     )
     ,(managedClasspath in Runtime) += (packageBin in (`sr-ui-assets`,Assets)).value
   )
