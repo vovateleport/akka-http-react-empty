@@ -1,8 +1,9 @@
-lazy val scalaV = "2.11.8"
-lazy val akkaHttpV = "10.0.0"
-lazy val reactV = "15.3.2"
-lazy val scalajsreactV = "0.11.3"
-lazy val upickleV = "0.4.3"
+lazy val scalaV = "2.12.1"
+lazy val akkaHttpV = "10.0.4"
+lazy val reactV = "15.4.2"
+lazy val scalajsreactV = "1.0.0-RC1"
+lazy val upickleV = "0.4.4"
+lazy val autowireV = "0.2.6"
 
 scalaVersion in ThisBuild := scalaV
 
@@ -28,7 +29,7 @@ lazy val `sr-service` = (project in file("sr-service"))
     name := "sr-service",
     libraryDependencies ++= Seq(
       "com.lihaoyi" %% "upickle" % upickleV,
-      "com.lihaoyi" %% "autowire" % "0.2.6",
+      "com.lihaoyi" %% "autowire" % autowireV,
 
       "com.typesafe.akka" %% "akka-http-core" % akkaHttpV,
       "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpV
@@ -44,7 +45,7 @@ lazy val `sr-ui` = (project in file("sr-ui"))
     name := "sr-ui",
     libraryDependencies ++= Seq(
       "com.lihaoyi" %%% "upickle" % upickleV,
-      "com.lihaoyi" %%% "autowire" % "0.2.6",
+      "com.lihaoyi" %%% "autowire" % autowireV,
       "org.scala-js" %%% "scalajs-dom" % "0.9.1",
       "com.github.japgolly.scalajs-react" %%% "core" % scalajsreactV,
       "com.github.japgolly.scalajs-react" %%% "extra" % scalajsreactV,

@@ -17,5 +17,6 @@ object SelfHosted extends App with Service {
 
   println(s"Listening on $interface[$port]. Press Enter to stop.")
   val result = scala.io.StdIn.readLine()
+  println("Stopping...")
   bindingFuture.flatMap(_.unbind()).onComplete(_ => system.terminate())
 }

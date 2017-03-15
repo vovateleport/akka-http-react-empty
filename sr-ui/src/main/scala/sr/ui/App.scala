@@ -19,7 +19,8 @@ object App extends JSApp {
     * Main entry point
     */
   def main(): Unit = {
-    ReactDOM.render(TodoControl.component(), document.getElementById("node0"))
+    TodoControl.component().renderIntoDOM(document.getElementById("node0"))
+    //ReactDOM.renderIntoDOM(TodoControl.component(), document.getElementById("node0"))
   }
 }
 

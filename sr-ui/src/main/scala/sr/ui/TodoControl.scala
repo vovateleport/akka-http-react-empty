@@ -2,27 +2,27 @@ package sr.ui
 
 import japgolly.scalajs.react._
 import sr.model.TodoItem
-import vdom.prefix_<^._
+import vdom.html_<^._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
 object TodoControl {
-  val TodoList = ReactComponentB[Seq[TodoItem]]("TodoList")
-    .render_P { props =>
+  val TodoList = ScalaComponent.build[Seq[TodoItem]]("TodoList")
+    .render_P ( props => {
       def createItem(item: TodoItem) = <.li(item.view())
-      <.ul(props map createItem)
-    }
+      <.ul(props toVdomArray createItem)
+    })
     .build
 
   case class State(items: Seq[TodoItem], text: String)
 
   class Backend($: BackendScope[Unit, State]) {
-    def onChange(e: ReactEventI) = {
+    def onChange(e: ReactEventFromInput) = {
       val newValue = e.target.value
       $.modState(_.copy(text = newValue))
     }
 
-    def handleSubmit(e: ReactEventI) = Callback.future {
+    def handleSubmit(e: ReactEventFromInput) = Callback.future {
       e.preventDefault()
       val v = $.state.runNow().text
       AppService.addTodo(v).map(_ => $.modState(s => s.copy(text = ""), load()))
@@ -45,7 +45,7 @@ object TodoControl {
     }
   }
 
-  val component = ReactComponentB[Unit]("TodoControl")
+  val component = ScalaComponent.build[Unit]("TodoControl")
     .initialState(State(Nil, ""))
     .renderBackend[Backend]
     .componentDidMount(_.backend.load())
