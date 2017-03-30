@@ -1,7 +1,7 @@
 lazy val scalaV = "2.12.1"
 lazy val akkaHttpV = "10.0.4"
 lazy val reactV = "15.4.2"
-lazy val scalajsreactV = "1.0.0-RC1"
+lazy val scalajsreactV = "1.0.0-RC2"
 lazy val upickleV = "0.4.4"
 lazy val autowireV = "0.2.6"
 

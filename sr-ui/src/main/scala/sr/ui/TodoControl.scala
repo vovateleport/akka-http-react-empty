@@ -7,7 +7,7 @@ import vdom.html_<^._
 import scala.concurrent.ExecutionContext.Implicits.global
 
 object TodoControl {
-  val TodoList = ScalaComponent.build[Seq[TodoItem]]("TodoList")
+  val TodoList = ScalaComponent.builder[Seq[TodoItem]]("TodoList")
     .render_P ( props => {
       def createItem(item: TodoItem) = <.li(item.view())
       <.ul(props toVdomArray createItem)
@@ -45,7 +45,7 @@ object TodoControl {
     }
   }
 
-  val component = ScalaComponent.build[Unit]("TodoControl")
+  val component = ScalaComponent.builder[Unit]("TodoControl")
     .initialState(State(Nil, ""))
     .renderBackend[Backend]
     .componentDidMount(_.backend.load())
