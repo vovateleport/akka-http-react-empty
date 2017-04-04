@@ -1,6 +1,5 @@
 package sr.ui
 
-import japgolly.scalajs.react.ReactDOM
 import org.scalajs.dom
 import org.scalajs.dom._
 import sr.Api
@@ -20,7 +19,6 @@ object App extends JSApp {
     */
   def main(): Unit = {
     TodoControl.component().renderIntoDOM(document.getElementById("node0"))
-    //ReactDOM.renderIntoDOM(TodoControl.component(), document.getElementById("node0"))
   }
 }
 
